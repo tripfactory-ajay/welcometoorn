@@ -64,6 +64,9 @@
         .slide {
             width: 100vw;
             height: 100vh;
+            max-width: 297mm;
+            max-height: 210mm;
+            margin: 0 auto;
             display: none;
             position: relative;
             background: #0a0a0a;
@@ -77,41 +80,41 @@
         
         /* UNIFORM TYPOGRAPHY - Applied to all slides */
         h1 {
-            font-size: 52px;
+            font-size: 48px;
             font-weight: 900;
             line-height: 1.1;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: white;
             letter-spacing: -1px;
         }
         
         h2 {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: white;
             line-height: 1.2;
         }
         
         h3 {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--orn-cyan);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 3px;
         }
         
         .subtitle {
-            font-size: 20px;
+            font-size: 18px;
             color: rgba(255,255,255,0.9);
             font-weight: 400;
             line-height: 1.5;
         }
         
         p, .problem-desc-dark, .value-desc-dark, .benefit-card-dark p, .slide9-paragraph, .slide10-list-item, .slide10-litmus-text {
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 15px;
+            line-height: 1.5;
         }
         
         /* CORRECTED ORN LOGO - Bars Above Text */
@@ -119,38 +122,38 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 6px;
+            gap: 4px;
         }
         
         .orn-bars {
             display: flex;
             align-items: flex-end;
-            gap: 4px;
-            height: 24px;
+            gap: 3px;
+            height: 20px;
         }
         
         .orn-bar {
-            width: 10px;
-            border-radius: 5px;
+            width: 8px;
+            border-radius: 4px;
         }
         
-        .orn-bar:nth-child(1) { height: 24px; background: #2c3e66; }
-        .orn-bar:nth-child(2) { height: 18px; background: #1976d2; }
-        .orn-bar:nth-child(3) { height: 24px; background: #00bcd4; }
-        .orn-bar:nth-child(4) { height: 18px; background: #8bc34a; }
-        .orn-bar:nth-child(5) { height: 24px; background: #ffeb3b; }
-        .orn-bar:nth-child(6) { height: 18px; background: #f44336; }
+        .orn-bar:nth-child(1) { height: 20px; background: #2c3e66; }
+        .orn-bar:nth-child(2) { height: 15px; background: #1976d2; }
+        .orn-bar:nth-child(3) { height: 20px; background: #00bcd4; }
+        .orn-bar:nth-child(4) { height: 15px; background: #8bc34a; }
+        .orn-bar:nth-child(5) { height: 20px; background: #ffeb3b; }
+        .orn-bar:nth-child(6) { height: 15px; background: #f44336; }
         
         .orn-text-logo {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 900;
             color: white;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             line-height: 1;
         }
         
         .tf-logo {
-            height: 24px;
+            height: 20px;
             filter: brightness(0) invert(1);
         }
         
@@ -158,13 +161,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px 15px;
+            padding: 20px 35px 12px;
             position: relative;
             z-index: 10;
         }
         
         .slide-number {
-            font-size: 12px;
+            font-size: 11px;
             color: rgba(255,255,255,0.7);
             font-weight: 600;
             letter-spacing: 2px;
@@ -185,8 +188,8 @@
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: rgba(0,188,212,0.15);
             border: 2px solid rgba(0,188,212,0.3);
             border-radius: 50%;
@@ -208,8 +211,8 @@
         .nav-arrow.next { right: 25px; }
         
         .nav-arrow svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             stroke: var(--orn-cyan);
             fill: none;
             stroke-width: 2;
@@ -315,7 +318,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 50px;
+            padding: 0 45px;
             z-index: 2;
         }
         
@@ -323,23 +326,23 @@
             display: inline-block;
             background: rgba(0,188,212,0.15);
             border: 1px solid var(--orn-cyan);
-            padding: 10px 24px;
+            padding: 8px 18px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--orn-cyan);
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             width: fit-content;
         }
         
         .slide1-headline {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 900;
             line-height: 1.05;
             color: white;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
         
         .slide1-headline span {
@@ -347,42 +350,42 @@
         }
         
         .slide1-sub {
-            font-size: 20px;
+            font-size: 17px;
             color: rgba(255,255,255,0.9);
             line-height: 1.5;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             max-width: 90%;
         }
         
         .slide1-pills {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
         
         .slide1-pill {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(0,188,212,0.3);
-            padding: 22px 32px;
-            border-radius: 12px;
+            padding: 18px 24px;
+            border-radius: 10px;
             text-align: center;
         }
         
         .slide1-pill-title {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 800;
             color: white;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .slide1-pill-sub {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--orn-cyan);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
         /* ============================================
-           SLIDE 2: THE PROBLEM - FIXED SPLIT DESIGN
+           SLIDE 2: THE PROBLEM - FIXED NO TEXT CUTOFF
            ============================================ */
         .slide2-container {
             position: relative;
@@ -395,67 +398,68 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 35%;
+            width: 32%;
             height: 100%;
-            clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+            clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
         }
         
         .slide2-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.5;
+            opacity: 0.4;
         }
         
         .slide2-content-side {
             position: absolute;
             top: 0;
             right: 0;
-            width: 70%;
+            width: 72%;
             height: 100%;
             background: #000;
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-            padding: 25px 50px;
+            clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+            padding: 20px 45px 20px 60px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            overflow-y: auto;
         }
         
         .problem-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 25px;
+            gap: 15px;
+            margin-top: 15px;
         }
         
         .problem-card-dark {
             background: rgba(20, 20, 25, 0.95);
-            border-left: 4px solid var(--orn-cyan);
-            border-radius: 12px;
-            padding: 28px;
+            border-left: 3px solid var(--orn-cyan);
+            border-radius: 10px;
+            padding: 18px;
             position: relative;
         }
         
         .problem-number-large {
-            font-size: 42px;
+            font-size: 32px;
             font-weight: 900;
             color: var(--orn-cyan);
             opacity: 0.4;
             line-height: 1;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .problem-title-dark {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 800;
             color: white;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .problem-desc-dark {
-            font-size: 16px;
+            font-size: 14px;
             color: rgba(255,255,255,0.85);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .problem-desc-dark strong {
@@ -465,14 +469,14 @@
         
         .quote-dark {
             background: rgba(0,188,212,0.1);
-            border-left: 4px solid var(--orn-cyan);
-            padding: 20px 28px;
-            border-radius: 0 12px 12px 0;
-            margin-top: 25px;
-            font-size: 18px;
+            border-left: 3px solid var(--orn-cyan);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 15px;
+            font-size: 15px;
             font-style: italic;
             color: rgba(255,255,255,0.95);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         /* ============================================
@@ -511,25 +515,25 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 30px 50px;
+            padding: 25px 45px;
         }
         
         .not-list-dark {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
-            margin: 25px 0;
-            max-width: 900px;
+            margin: 15px 0;
+            max-width: 800px;
         }
         
         .not-item-dark {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.2);
             color: rgba(255,255,255,0.5);
-            padding: 10px 22px;
-            border-radius: 25px;
-            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
             text-decoration: line-through;
         }
@@ -537,62 +541,62 @@
         .enabler-badge {
             background: linear-gradient(135deg, var(--orn-cyan) 0%, var(--orn-blue) 100%);
             color: #000;
-            padding: 18px 55px;
-            border-radius: 35px;
-            font-size: 22px;
+            padding: 14px 45px;
+            border-radius: 30px;
+            font-size: 18px;
             font-weight: 900;
             letter-spacing: 3px;
-            margin: 20px 0;
+            margin: 12px 0;
         }
         
         .fedex-container-dark {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
+            gap: 30px;
+            margin: 20px 0;
         }
         
         .fedex-box-dark {
             background: linear-gradient(135deg, rgba(30,58,95,0.9) 0%, rgba(44,82,130,0.9) 100%);
             border: 1px solid rgba(0,188,212,0.3);
-            padding: 30px;
-            border-radius: 14px;
+            padding: 22px;
+            border-radius: 12px;
             text-align: center;
-            min-width: 240px;
+            min-width: 180px;
         }
         
         .fedex-label-dark {
-            font-size: 13px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--orn-cyan);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 700;
         }
         
         .fedex-brand-dark {
-            font-size: 42px;
+            font-size: 32px;
             font-weight: 900;
             color: white;
         }
         
         .arrow-dark {
-            font-size: 42px;
+            font-size: 32px;
             color: var(--orn-cyan);
         }
         
         .orn-box-dark {
             background: rgba(0,0,0,0.6);
             border: 2px solid var(--orn-cyan);
-            padding: 30px;
-            border-radius: 14px;
+            padding: 22px;
+            border-radius: 12px;
             text-align: center;
-            min-width: 240px;
+            min-width: 180px;
         }
         
         .orn-brand-dark {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 900;
             color: var(--orn-cyan);
         }
@@ -628,7 +632,7 @@
         .slide4-content {
             position: relative;
             z-index: 2;
-            padding: 20px 40px;
+            padding: 15px 35px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -637,175 +641,177 @@
         .stats-banner-dark {
             background: linear-gradient(135deg, rgba(30,58,95,0.95) 0%, rgba(44,82,130,0.95) 100%);
             border: 2px solid rgba(0,188,212,0.4);
-            border-radius: 16px;
-            padding: 25px 40px;
+            border-radius: 14px;
+            padding: 18px 35px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
         .stat-item-dark {
             text-align: center;
-            padding: 0 20px;
+            padding: 0 15px;
         }
         
         .stat-number-dark {
-            font-size: 48px;
+            font-size: 40px;
             font-weight: 900;
             color: var(--orn-cyan);
             line-height: 1;
         }
         
         .stat-label-dark {
-            font-size: 13px;
+            font-size: 11px;
             color: rgba(255,255,255,0.9);
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-top: 8px;
+            margin-top: 6px;
             font-weight: 600;
         }
         
         .three-col-dark {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 15px;
             flex: 1;
+            min-height: 0;
         }
         
         .info-card-dark {
             background: rgba(20, 20, 25, 0.95);
             border: 2px solid rgba(0,188,212,0.3);
-            border-radius: 16px;
-            padding: 28px;
+            border-radius: 14px;
+            padding: 18px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         .info-header-dark {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 22px;
+            gap: 12px;
+            margin-bottom: 12px;
         }
         
         .badge-dark {
             background: linear-gradient(135deg, var(--orn-navy) 0%, #2c5282 100%);
             color: white;
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-size: 15px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: 800;
             flex: 1;
             text-align: center;
         }
         
         .iso-small {
-            width: 55px;
-            height: 55px;
+            width: 45px;
+            height: 45px;
             background: #003366;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 10px;
+            font-size: 8px;
             text-align: center;
             font-weight: 700;
             line-height: 1.1;
-            border: 2px solid var(--orn-cyan);
+            border: 1px solid var(--orn-cyan);
         }
         
         .feature-box-dark {
             background: rgba(0,188,212,0.12);
             border: 1px solid rgba(0,188,212,0.3);
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 15px;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
         }
         
         .feature-box-dark h4 {
             color: var(--orn-cyan);
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 13px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .feature-box-dark p {
             color: rgba(255,255,255,0.9);
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.4;
         }
         
         .leader-item-dark {
             background: rgba(255,255,255,0.08);
-            border-left: 3px solid var(--orn-cyan);
-            padding: 16px;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 14px;
+            border-left: 2px solid var(--orn-cyan);
+            padding: 10px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 8px;
         }
         
         .leader-name-dark {
             font-weight: 800;
             color: white;
-            font-size: 18px;
+            font-size: 15px;
         }
         
         .leader-role-dark {
-            font-size: 14px;
+            font-size: 12px;
             color: rgba(255,255,255,0.7);
-            margin-top: 4px;
         }
         
         .leader-tag-dark {
-            font-size: 12px;
+            font-size: 10px;
             color: var(--orn-cyan);
-            margin-top: 6px;
+            margin-top: 4px;
             font-weight: 600;
         }
         
         .founder-card-dark {
             background: linear-gradient(135deg, rgba(30,58,95,0.9) 0%, rgba(44,82,130,0.9) 100%);
-            border: 2px solid rgba(0,188,212,0.4);
-            padding: 20px;
-            border-radius: 12px;
+            border: 1px solid rgba(0,188,212,0.4);
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
         
         .founder-name-dark {
             font-weight: 800;
             color: white;
-            font-size: 20px;
+            font-size: 16px;
         }
         
         .founder-role-dark {
-            font-size: 14px;
+            font-size: 12px;
             color: var(--orn-cyan);
             font-weight: 700;
-            margin-top: 6px;
+            margin-top: 4px;
         }
         
         .founder-cred-dark {
-            font-size: 13px;
+            font-size: 11px;
             color: rgba(255,255,255,0.8);
-            margin-top: 8px;
+            margin-top: 4px;
         }
         
         .board-bar-dark {
             background: rgba(255,255,255,0.12);
-            padding: 16px;
-            border-radius: 12px;
-            margin-top: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
             text-align: center;
-            font-size: 13px;
+            font-size: 10px;
             color: rgba(255,255,255,0.9);
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         /* ============================================
-           SLIDE 5: GLOBAL PRESENCE - SPLIT DESIGN
+           SLIDE 5: GLOBAL PRESENCE - REDESIGNED
            ============================================ */
         .slide5-container {
             position: relative;
@@ -816,7 +822,7 @@
         .slide5-content {
             position: relative;
             z-index: 2;
-            padding: 20px 40px;
+            padding: 15px 35px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -824,57 +830,57 @@
         
         .global-header-row {
             display: flex;
-            gap: 25px;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 12px;
         }
         
         .global-title-box {
             flex: 1;
             background: rgba(20, 20, 25, 0.95);
             border: 2px solid rgba(0,188,212,0.3);
-            border-radius: 16px;
-            padding: 28px 35px;
+            border-radius: 14px;
+            padding: 20px 28px;
         }
         
         .global-title-box h1 {
-            font-size: 42px;
-            margin-bottom: 12px;
+            font-size: 38px;
+            margin-bottom: 8px;
         }
         
         .global-title-box .subtitle {
-            font-size: 18px;
+            font-size: 16px;
         }
         
         .global-metric-banner {
             background: linear-gradient(135deg, rgba(255,235,59,0.95) 0%, rgba(255,193,7,0.95) 100%);
             color: #000;
-            padding: 28px 40px;
-            border-radius: 16px;
+            padding: 20px 35px;
+            border-radius: 14px;
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-width: 280px;
+            min-width: 220px;
         }
         
         .global-metric-number {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 900;
             line-height: 1;
         }
         
         .global-metric-label {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-top: 10px;
+            margin-top: 8px;
         }
         
         .global-main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
             flex: 1;
             min-height: 0;
         }
@@ -882,8 +888,8 @@
         .global-map-section {
             background: rgba(20, 20, 25, 0.95);
             border: 2px solid rgba(0,188,212,0.3);
-            border-radius: 16px;
-            padding: 25px;
+            border-radius: 14px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
         }
@@ -892,7 +898,7 @@
             width: 100%;
             flex: 1;
             object-fit: contain;
-            border-radius: 12px;
+            border-radius: 10px;
             min-height: 0;
         }
         
@@ -900,29 +906,29 @@
             display: flex;
             justify-content: space-around;
             background: linear-gradient(135deg, rgba(30,58,95,0.95) 0%, rgba(44,82,130,0.95) 100%);
-            border: 2px solid rgba(0,188,212,0.4);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
+            border: 1px solid rgba(0,188,212,0.4);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
         }
         
         .global-map-footer .stat-item-dark {
-            padding: 0 15px;
+            padding: 0 10px;
         }
         
         .global-map-footer .stat-number-dark {
-            font-size: 32px;
+            font-size: 24px;
         }
         
         .global-map-footer .stat-label-dark {
-            font-size: 11px;
+            font-size: 9px;
         }
         
         .global-table-section {
             background: rgba(20, 20, 25, 0.95);
             border: 2px solid rgba(0,188,212,0.3);
-            border-radius: 16px;
-            padding: 30px;
+            border-radius: 14px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
         }
@@ -930,8 +936,8 @@
         .coverage-box-dark {
             background: linear-gradient(135deg, rgba(0,188,212,0.2) 0%, rgba(33,150,243,0.2) 100%);
             border: 2px solid rgba(0,188,212,0.4);
-            border-radius: 16px;
-            padding: 35px;
+            border-radius: 14px;
+            padding: 30px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -940,14 +946,14 @@
         
         .coverage-box-dark h3 {
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 18px;
+            margin-bottom: 20px;
+            font-size: 16px;
         }
         
         .coverage-stats-dark {
             display: flex;
             justify-content: space-around;
-            margin: 20px 0;
+            margin: 15px 0;
         }
         
         .coverage-item-dark {
@@ -955,13 +961,13 @@
         }
         
         .coverage-num-dark {
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 900;
             color: var(--orn-cyan);
         }
         
         .coverage-label-dark {
-            font-size: 13px;
+            font-size: 11px;
             color: rgba(255,255,255,0.9);
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -970,14 +976,14 @@
         
         .coverage-desc {
             text-align: center;
-            font-size: 17px;
+            font-size: 15px;
             color: rgba(255,255,255,0.9);
-            line-height: 1.7;
-            margin-top: 25px;
+            line-height: 1.6;
+            margin-top: 20px;
         }
         
         /* ============================================
-           SLIDE 6: VALUES - ENLARGED PEM BOXES
+           SLIDE 6: VALUES - ENLARGED PEM BOXES WITH MAP PLACEHOLDER
            ============================================ */
         .slide6-container {
             position: relative;
@@ -1007,7 +1013,7 @@
         .slide6-content {
             position: relative;
             z-index: 2;
-            padding: 20px 40px;
+            padding: 15px 35px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -1016,39 +1022,39 @@
         .pem-row {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 30px 0;
+            gap: 25px;
+            margin: 15px 0;
         }
         
         .pem-card-dark {
             background: rgba(20, 20, 25, 0.95);
             border: 2px solid rgba(0,188,212,0.4);
-            border-top: 5px solid var(--orn-cyan);
-            border-radius: 20px;
-            padding: 50px 45px;
+            border-top: 4px solid var(--orn-cyan);
+            border-radius: 16px;
+            padding: 30px 25px;
             text-align: center;
-            min-width: 220px;
+            min-width: 160px;
             flex: 1;
-            max-width: 320px;
+            max-width: 260px;
         }
         
         .pem-letter-dark {
-            font-size: 72px;
+            font-size: 56px;
             font-weight: 900;
             color: var(--orn-cyan);
             line-height: 1;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .pem-word-dark {
-            font-size: 28px;
+            font-size: 22px;
             font-weight: 800;
             color: white;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .pem-example-dark {
-            font-size: 16px;
+            font-size: 13px;
             color: rgba(255,255,255,0.8);
             font-style: italic;
         }
@@ -1056,34 +1062,64 @@
         .values-grid-dark {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 15px;
         }
         
         .value-card-dark {
             background: rgba(20, 20, 25, 0.95);
-            border: 2px solid rgba(255,255,255,0.15);
-            border-radius: 16px;
-            padding: 35px 25px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 14px;
+            padding: 22px 18px;
             text-align: center;
         }
         
         .value-icon-dark {
-            font-size: 48px;
-            margin-bottom: 20px;
+            font-size: 36px;
+            margin-bottom: 12px;
         }
         
         .value-title-dark {
-            font-size: 22px;
+            font-size: 17px;
             font-weight: 800;
             color: white;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
         
         .value-desc-dark {
-            font-size: 16px;
+            font-size: 13px;
             color: rgba(255,255,255,0.85);
-            line-height: 1.6;
+            line-height: 1.5;
+        }
+        
+        /* Map Placeholder Styles */
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,188,212,0.1) 0%, rgba(33,150,243,0.1) 100%);
+            border: 2px dashed rgba(0,188,212,0.4);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--orn-cyan);
+            font-size: 18px;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .map-placeholder-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+            opacity: 0.6;
+        }
+        
+        .map-placeholder-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 10px;
         }
         
         /* ============================================
@@ -1117,7 +1153,7 @@
         .slide7-content {
             position: relative;
             z-index: 2;
-            padding: 20px 40px;
+            padding: 15px 35px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -1127,28 +1163,29 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            overflow: hidden;
         }
         
         .industry-tabs-dark {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 12px;
             justify-content: center;
         }
         
         .tab-btn-dark {
             background: rgba(255,255,255,0.08);
             color: rgba(255,255,255,0.8);
-            border: 2px solid rgba(0,188,212,0.4);
-            padding: 16px 28px;
-            border-radius: 30px;
+            border: 1px solid rgba(0,188,212,0.4);
+            padding: 12px 22px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .tab-btn-dark.active {
@@ -1159,12 +1196,12 @@
         
         .tab-image-strip {
             width: 100%;
-            height: 120px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+            height: 100px;
+            border-radius: 12px;
+            margin-bottom: 12px;
             overflow: hidden;
             position: relative;
-            border: 2px solid rgba(0,188,212,0.3);
+            border: 1px solid rgba(0,188,212,0.3);
         }
         
         .tab-image-strip img {
@@ -1179,14 +1216,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .tab-image-title {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: 900;
             color: white;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
@@ -1196,46 +1233,47 @@
         .industry-content-dark {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 12px;
             flex: 1;
             overflow: hidden;
         }
         
         .benefit-card-dark {
             background: rgba(20, 20, 25, 0.95);
-            border-left: 4px solid var(--orn-cyan);
-            border-radius: 0 16px 16px 0;
-            padding: 28px;
+            border-left: 3px solid var(--orn-cyan);
+            border-radius: 0 12px 12px 0;
+            padding: 18px;
+            overflow: hidden;
         }
         
         .benefit-card-dark h3 {
             color: var(--orn-cyan);
-            font-size: 15px;
-            margin-bottom: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
             letter-spacing: 2px;
         }
         
         .benefit-card-dark h2 {
-            font-size: 26px;
-            margin-bottom: 16px;
+            font-size: 20px;
+            margin-bottom: 10px;
             line-height: 1.3;
         }
         
         .benefit-card-dark p {
             color: rgba(255,255,255,0.9);
-            font-size: 17px;
-            line-height: 1.7;
+            font-size: 14px;
+            line-height: 1.5;
         }
         
         .quote-bar-dark {
             background: rgba(0,188,212,0.15);
-            border-left: 4px solid var(--orn-cyan);
-            padding: 22px 30px;
-            border-radius: 0 16px 16px 0;
-            margin-top: 20px;
-            font-size: 18px;
+            border-left: 3px solid var(--orn-cyan);
+            padding: 15px 22px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 12px;
+            font-size: 15px;
             color: rgba(255,255,255,0.95);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         /* ============================================
@@ -1287,7 +1325,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 60px;
+            padding: 0 50px;
         }
         
         .slide8-text-block {
@@ -1295,27 +1333,27 @@
         }
         
         .slide8-main-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .slide8-infrastructure {
-            font-size: 90px;
+            font-size: 72px;
             font-weight: 900;
             color: white;
             line-height: 0.95;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             letter-spacing: -2px;
         }
         
         .slide8-tagline {
-            font-size: 24px;
+            font-size: 20px;
             color: rgba(255,255,255,0.9);
             font-weight: 300;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         /* ============================================
@@ -1331,7 +1369,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 50%;
+            width: 48%;
             height: 100%;
             clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
         }
@@ -1360,45 +1398,45 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-end;
-            padding: 0 60px;
+            padding: 0 50px;
             text-align: right;
         }
         
         .slide9-text-block {
-            max-width: 50%;
+            max-width: 48%;
         }
         
         .slide9-header {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: var(--orn-cyan);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
         
         .slide9-title {
-            font-size: 64px;
+            font-size: 52px;
             font-weight: 900;
             color: white;
             line-height: 1;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
         
         .slide9-paragraph {
-            font-size: 22px;
+            font-size: 18px;
             color: rgba(255,255,255,0.95);
-            line-height: 1.7;
-            margin-bottom: 25px;
+            line-height: 1.6;
+            margin-bottom: 18px;
         }
         
         .slide9-quote {
             background: rgba(0,188,212,0.2);
-            border-right: 5px solid var(--orn-cyan);
-            padding: 30px;
-            border-radius: 16px 0 0 16px;
-            margin: 30px 0;
-            font-size: 24px;
+            border-right: 4px solid var(--orn-cyan);
+            padding: 22px;
+            border-radius: 12px 0 0 12px;
+            margin: 22px 0;
+            font-size: 20px;
             font-style: italic;
             color: white;
             text-align: right;
@@ -1406,7 +1444,7 @@
         }
         
         /* ============================================
-           SLIDE 10: WHY ORN WINS - ENLARGED
+           SLIDE 10: WHY ORN WINS - FIXED TO FIT ALL CONTENT
            ============================================ */
         .slide10-container {
             display: flex;
@@ -1414,21 +1452,22 @@
         }
         
         .slide10-left {
-            width: 50%;
+            width: 52%;
             background: #000;
-            padding: 30px 50px;
+            padding: 20px 40px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
             z-index: 2;
+            overflow-y: auto;
         }
         
         .slide10-right {
-            width: 55%;
+            width: 52%;
             position: relative;
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
-            margin-left: -5%;
+            clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+            margin-left: -4%;
         }
         
         .slide10-right-image {
@@ -1443,39 +1482,39 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+            background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.3));
         }
         
         .slide10-header {
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 700;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: var(--orn-cyan);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
         
         .slide10-title {
-            font-size: 56px;
+            font-size: 42px;
             font-weight: 900;
             color: white;
             line-height: 1.1;
-            margin-bottom: 35px;
+            margin-bottom: 18px;
         }
         
         .slide10-list {
             list-style: none;
             padding: 0;
-            margin-bottom: 35px;
+            margin-bottom: 15px;
         }
         
         .slide10-list-item {
-            font-size: 20px;
+            font-size: 15px;
             color: rgba(255,255,255,0.95);
-            margin-bottom: 18px;
-            padding-left: 35px;
+            margin-bottom: 10px;
+            padding-left: 28px;
             position: relative;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         .slide10-list-item::before {
@@ -1484,27 +1523,27 @@
             left: 0;
             color: var(--orn-cyan);
             font-weight: 700;
-            font-size: 24px;
+            font-size: 20px;
         }
         
         .slide10-litmus {
-            background: linear-gradient(135deg, rgba(0,188,212,0.2), rgba(33,150,243,0.2));
-            border: 2px solid rgba(0,188,212,0.4);
-            border-radius: 16px;
-            padding: 30px;
+            background: linear-gradient(135deg, rgba(0,188,212,0.15), rgba(33,150,243,0.15));
+            border: 1px solid rgba(0,188,212,0.3);
+            border-radius: 12px;
+            padding: 18px;
         }
         
         .slide10-litmus-title {
-            font-size: 22px;
+            font-size: 17px;
             font-weight: 800;
             color: var(--orn-cyan);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         
         .slide10-litmus-text {
-            font-size: 18px;
+            font-size: 14px;
             color: rgba(255,255,255,0.95);
-            line-height: 1.8;
+            line-height: 1.6;
         }
         
         .slide10-litmus-highlight {
@@ -1549,24 +1588,24 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 30px;
+            padding: 25px;
         }
         
         .closing-label {
-            font-size: 18px;
-            letter-spacing: 4px;
+            font-size: 15px;
+            letter-spacing: 3px;
             color: var(--orn-cyan);
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .closing-headline {
-            font-size: 72px;
+            font-size: 56px;
             font-weight: 900;
             line-height: 1.1;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         
         .closing-headline span {
@@ -1574,47 +1613,47 @@
         }
         
         .closing-sub {
-            font-size: 24px;
+            font-size: 20px;
             color: rgba(255,255,255,0.95);
-            margin-bottom: 40px;
-            max-width: 800px;
+            margin-bottom: 30px;
+            max-width: 700px;
             line-height: 1.5;
         }
         
         .closing-pills {
             display: flex;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 25px;
+            margin-bottom: 30px;
         }
         
         .closing-pill {
             background: rgba(20, 20, 25, 0.95);
-            border: 2px solid rgba(0,188,212,0.4);
-            padding: 30px 50px;
-            border-radius: 16px;
+            border: 1px solid rgba(0,188,212,0.4);
+            padding: 22px 40px;
+            border-radius: 14px;
             text-align: center;
-            min-width: 280px;
+            min-width: 240px;
         }
         
         .closing-pill-label {
-            font-size: 13px;
+            font-size: 12px;
             color: rgba(255,255,255,0.7);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .closing-pill-value {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--orn-cyan);
         }
         
         .closing-quote {
-            font-size: 22px;
+            font-size: 18px;
             color: rgba(255,255,255,0.9);
             font-style: italic;
-            max-width: 900px;
+            max-width: 800px;
             line-height: 1.6;
         }
     </style>
@@ -1647,7 +1686,7 @@
                 <div class="slide1-image-overlay"></div>
             </div>
             <div class="slide1-black-side">
-                <div class="orn-logo-container" style="position: absolute; top: 25px; left: 40px;">
+                <div class="orn-logo-container" style="position: absolute; top: 20px; left: 35px;">
                     <div class="orn-bars">
                         <div class="orn-bar"></div>
                         <div class="orn-bar"></div>
@@ -1659,7 +1698,7 @@
                     <div class="orn-text-logo">ORN</div>
                 </div>
                 
-                <div style="margin-top: 80px;">
+                <div style="margin-top: 60px;">
                     <div class="slide1-label animate delay-1">We Are ORN</div>
                     <div class="slide1-headline animate delay-1">
                         We Built the<br>
@@ -1684,7 +1723,7 @@
                 </div>
             </div>
         </div>
-        <div style="position: absolute; top: 25px; right: 40px; z-index: 10;">
+        <div style="position: absolute; top: 20px; right: 35px; z-index: 10;">
             <div style="display: flex; align-items: center; gap: 15px;">
                 <img src="tripfactory-logo.png" alt="TripFactory" class="tf-logo" onerror="this.style.display='none'">
                 <span class="slide-number">01 / 11</span>
@@ -1693,7 +1732,7 @@
     </div>
 
     <!-- ============================================
-         SLIDE 2: THE PROBLEM - FIXED SPLIT DESIGN
+         SLIDE 2: THE PROBLEM - FIXED NO TEXT CUTOFF
          ============================================ -->
     <div class="slide" id="slide2">
         <div class="slide2-container">
@@ -1701,7 +1740,7 @@
                 <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80" alt="City Skyline" class="slide2-image">
             </div>
             <div class="slide2-content-side">
-                <div class="header" style="padding: 0 0 20px 0;">
+                <div class="header" style="padding: 0 0 15px 0;">
                     <div class="orn-logo-container">
                         <div class="orn-bars">
                             <div class="orn-bar"></div>
@@ -1717,8 +1756,8 @@
                 </div>
                 
                 <h3>The Problem</h3>
-                <h1 style="font-size: 48px;">Tourism Had No<br>Infrastructure Layer</h1>
-                <p class="subtitle" style="font-size: 20px; margin-bottom: 25px;">Three fundamental failures that broke every journey—until now</p>
+                <h1 style="font-size: 42px;">Tourism Had No<br>Infrastructure Layer</h1>
+                <p class="subtitle" style="font-size: 18px; margin-bottom: 18px;">Three fundamental failures that broke every journey—until now</p>
                 
                 <div class="problem-grid animate delay-2">
                     <div class="problem-card-dark">
@@ -1759,7 +1798,7 @@
             <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80" alt="Airplane Wing" class="slide3-bg-image">
             <div class="slide3-overlay"></div>
             
-            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 20px 35px;">
                 <div class="orn-logo-container">
                     <div class="orn-bars">
                         <div class="orn-bar"></div>
@@ -1776,7 +1815,7 @@
             
             <div class="slide3-content">
                 <h3>The Solution</h3>
-                <h1 style="font-size: 56px;">We Are Not What You Think</h1>
+                <h1 style="font-size: 48px;">We Are Not What You Think</h1>
                 
                 <div class="not-list-dark animate delay-2">
                     <span class="not-item-dark">Not a Tour Operator</span>
@@ -1793,17 +1832,17 @@
                     <div class="fedex-box-dark">
                         <div class="fedex-label-dark">Logistics Giants</div>
                         <div class="fedex-brand-dark">FedEx</div>
-                        <div style="font-size: 16px; color: rgba(255,255,255,0.8); margin-top: 10px;">Moves packages globally</div>
+                        <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 8px;">Moves packages globally</div>
                     </div>
                     <div class="arrow-dark">→</div>
                     <div class="orn-box-dark">
                         <div class="fedex-label-dark" style="color: var(--orn-cyan);">We Are</div>
                         <div class="orn-brand-dark">ORN</div>
-                        <div style="font-size: 18px; color: rgba(255,255,255,0.9); margin-top: 10px; font-weight: 600;">Moves travelers seamlessly</div>
+                        <div style="font-size: 16px; color: rgba(255,255,255,0.9); margin-top: 8px; font-weight: 600;">Moves travelers seamlessly</div>
                     </div>
                 </div>
                 
-                <p class="animate delay-4" style="font-size: 22px; color: rgba(255,255,255,0.95); text-align: center; max-width: 900px; line-height: 1.7; margin-top: 20px;">
+                <p class="animate delay-4" style="font-size: 20px; color: rgba(255,255,255,0.95); text-align: center; max-width: 800px; line-height: 1.6; margin-top: 15px;">
                     We have created <strong style="color: var(--orn-cyan);">principal infrastructure</strong> for tourism.<br>
                     Airlines move you airport-to-airport. We move you door-to-door, end-to-end.
                 </p>
@@ -1820,7 +1859,7 @@
             <div class="slide4-overlay"></div>
             
             <div class="slide4-content">
-                <div class="header" style="padding: 0 0 20px 0;">
+                <div class="header" style="padding: 0 0 12px 0;">
                     <div class="orn-logo-container">
                         <div class="orn-bars">
                             <div class="orn-bar"></div>
@@ -1871,20 +1910,20 @@
                             <p>Backed by one of India's largest conglomerates. Zero debt, profitable operations.</p>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px;">
-                            <div class="feature-box-dark" style="text-align: center; padding: 18px;">
-                                <div style="font-size: 32px; font-weight: 900; color: var(--orn-cyan);">150+</div>
-                                <div style="font-size: 13px; color: rgba(255,255,255,0.8);">Innovation Labs</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                            <div class="feature-box-dark" style="text-align: center; padding: 14px;">
+                                <div style="font-size: 28px; font-weight: 900; color: var(--orn-cyan);">150+</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Innovation Labs</div>
                             </div>
-                            <div class="feature-box-dark" style="text-align: center; padding: 18px;">
-                                <div style="font-size: 32px; font-weight: 900; color: var(--orn-cyan);">160+</div>
-                                <div style="font-size: 13px; color: rgba(255,255,255,0.8);">Nationalities</div>
+                            <div class="feature-box-dark" style="text-align: center; padding: 14px;">
+                                <div style="font-size: 28px; font-weight: 900; color: var(--orn-cyan);">160+</div>
+                                <div style="font-size: 11px; color: rgba(255,255,255,0.8);">Nationalities</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="info-card-dark">
-                        <h3 style="text-align: center; margin-bottom: 25px; font-size: 16px;">World-Class Leadership</h3>
+                        <h3 style="text-align: center; margin-bottom: 18px; font-size: 14px;">World-Class Leadership</h3>
                         
                         <div class="leader-item-dark">
                             <div class="leader-name-dark">Andrew McEvoy</div>
@@ -1910,7 +1949,7 @@
                     </div>
                     
                     <div class="info-card-dark">
-                        <h3 style="text-align: center; margin-bottom: 25px; font-size: 16px;">Proven Founders</h3>
+                        <h3 style="text-align: center; margin-bottom: 18px; font-size: 14px;">Proven Founders</h3>
                         
                         <div class="founder-card-dark">
                             <div class="founder-name-dark">Vinay Gupta</div>
@@ -1930,7 +1969,7 @@
                             <div class="founder-cred-dark">Scaled tech team 20→100+</div>
                         </div>
                         
-                        <div class="quote-dark" style="margin-top: 20px; font-size: 14px; padding: 20px;">
+                        <div class="quote-dark" style="margin-top: 12px; font-size: 12px; padding: 15px;">
                             <em>"This is not a travel company. This is principal infrastructure."</em>
                         </div>
                     </div>
@@ -1945,7 +1984,7 @@
     <div class="slide" id="slide5">
         <div class="slide5-container">
             <div class="slide5-content">
-                <div class="header" style="padding: 0 0 20px 0;">
+                <div class="header" style="padding: 0 0 12px 0;">
                     <div class="orn-logo-container">
                         <div class="orn-bars">
                             <div class="orn-bar"></div>
@@ -1963,8 +2002,8 @@
                 <div class="global-header-row animate delay-1">
                     <div class="global-title-box">
                         <h3>Global Presence</h3>
-                        <h1 style="font-size: 48px; margin-bottom: 12px;">We Are Where the Money Is</h1>
-                        <p class="subtitle" style="font-size: 20px;">Strategic hubs covering $300B+ of global travel spend across 40+ countries</p>
+                        <h1 style="font-size: 40px; margin-bottom: 8px;">We Are Where the Money Is</h1>
+                        <p class="subtitle" style="font-size: 17px;">Strategic hubs covering $300B+ of global travel spend across 40+ countries</p>
                     </div>
                     <div class="global-metric-banner">
                         <div class="global-metric-number">$300B+</div>
@@ -1974,7 +2013,7 @@
                 
                 <div class="global-main-content animate delay-2">
                     <div class="global-map-section">
-                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1920&q=80" alt="ORN Global Network" class="global-map-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;background:rgba(0,188,212,0.1);border-radius:12px;color:#666;font-size:18px;font-weight:600;\'>[Global Network Map]</div>';">
+                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1920&q=80" alt="ORN Global Network" class="global-map-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;background:rgba(0,188,212,0.1);border-radius:10px;color:#666;font-size:16px;font-weight:600;\'>[Global Map]</div>';">
                         
                         <div class="global-map-footer">
                             <div class="stat-item-dark">
@@ -2024,7 +2063,7 @@
     </div>
 
     <!-- ============================================
-         SLIDE 6: VALUES - ENLARGED PEM BOXES
+         SLIDE 6: VALUES - ENLARGED PEM BOXES WITH MAP PLACEHOLDER
          ============================================ -->
     <div class="slide" id="slide6">
         <div class="slide6-container">
@@ -2032,7 +2071,7 @@
             <div class="slide6-overlay"></div>
             
             <div class="slide6-content">
-                <div class="header" style="padding: 0 0 20px 0;">
+                <div class="header" style="padding: 0 0 12px 0;">
                     <div class="orn-logo-container">
                         <div class="orn-bars">
                             <div class="orn-bar"></div>
@@ -2047,10 +2086,10 @@
                     <span class="slide-number">06 / 11</span>
                 </div>
                 
-                <div style="max-width: 900px; margin-bottom: 30px;">
+                <div style="max-width: 800px; margin-bottom: 15px;">
                     <h3>How We Built It</h3>
-                    <h1 style="font-size: 52px;">Values-Driven Infrastructure</h1>
-                    <p class="subtitle" style="font-size: 22px;">Integrity, Innovation, Reliability, Care—the principles that created our platform</p>
+                    <h1 style="font-size: 44px;">Values-Driven Infrastructure</h1>
+                    <p class="subtitle" style="font-size: 18px;">Integrity, Innovation, Reliability, Care—the principles that created our platform</p>
                 </div>
                 
                 <div class="pem-row animate delay-2">
@@ -2071,7 +2110,16 @@
                     </div>
                 </div>
                 
-                <div class="values-grid-dark animate delay-3">
+                <!-- MAP PLACEHOLDER SECTION -->
+                <div style="flex: 1; min-height: 0; margin-bottom: 15px;">
+                    <div class="map-placeholder animate delay-3">
+                        <div class="map-placeholder-icon">🗺️</div>
+                        <div>YOUR MAP HERE</div>
+                        <div class="map-placeholder-text">Replace this placeholder with your ORN global map image<br>Recommended size: 1200 x 400 pixels</div>
+                    </div>
+                </div>
+                
+                <div class="values-grid-dark animate delay-4">
                     <div class="value-card-dark">
                         <div class="value-icon-dark">⚡</div>
                         <div class="value-title-dark">Integrity First</div>
@@ -2106,7 +2154,7 @@
             <div class="slide7-overlay"></div>
             
             <div class="slide7-content">
-                <div class="header" style="padding: 0 0 20px 0;">
+                <div class="header" style="padding: 0 0 12px 0;">
                     <div class="orn-logo-container">
                         <div class="orn-bars">
                             <div class="orn-bar"></div>
@@ -2121,10 +2169,10 @@
                     <span class="slide-number">07 / 11</span>
                 </div>
                 
-                <div style="max-width: 900px; margin-bottom: 20px;">
+                <div style="max-width: 800px; margin-bottom: 12px;">
                     <h3>Partnership</h3>
-                    <h1 style="font-size: 48px;">Why Work With Us</h1>
-                    <p class="subtitle" style="font-size: 20px;">We complete the ecosystem—we don't compete with it</p>
+                    <h1 style="font-size: 42px;">Why Work With Us</h1>
+                    <p class="subtitle" style="font-size: 17px;">We complete the ecosystem—we don't compete with it</p>
                 </div>
                 
                 <div class="tabs-container">
@@ -2143,9 +2191,9 @@
                         </div>
                     </div>
                     
-                    <!-- AIRLINES TAB IMAGE -->
+                    <!-- AIRLINES TAB IMAGE - SKY WITH PLANE -->
                     <div id="image-airlines" class="tab-image-strip animate delay-2" style="display: none;">
-                        <img src="https://images.unsplash.com/photo-1542296332-2e44a996aa0d?w=1920&q=80" alt="Airplane Cabin">
+                        <img src="https://images.unsplash.com/photo-1559628233-100c798642d4?w=1920&q=80" alt="Airplane in Sky">
                         <div class="tab-image-overlay">
                             <div class="tab-image-title">AIRLINE PARTNERSHIPS</div>
                         </div>
@@ -2322,7 +2370,7 @@
             </div>
             <div class="slide8-diagonal"></div>
             
-            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 20px 35px;">
                 <div class="orn-logo-container">
                     <div class="orn-bars">
                         <div class="orn-bar"></div>
@@ -2359,7 +2407,7 @@
             </div>
             <div class="slide9-diagonal"></div>
             
-            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 20px 35px;">
                 <div class="orn-logo-container">
                     <div class="orn-bars">
                         <div class="orn-bar"></div>
@@ -2400,12 +2448,12 @@
     </div>
 
     <!-- ============================================
-         SLIDE 10: WHY ORN WINS - ENLARGED
+         SLIDE 10: WHY ORN WINS - FIXED TO FIT ALL CONTENT
          ============================================ -->
     <div class="slide" id="slide10">
         <div class="slide10-container">
             <div class="slide10-left">
-                <div class="header" style="position: absolute; top: 25px; left: 40px; z-index: 10; padding: 0;">
+                <div class="header" style="position: absolute; top: 20px; left: 35px; z-index: 10; padding: 0;">
                     <div class="orn-logo-container">
                         <div class="orn-bars">
                             <div class="orn-bar"></div>
@@ -2419,7 +2467,7 @@
                     </div>
                 </div>
                 
-                <div style="margin-top: 60px;">
+                <div style="margin-top: 50px;">
                     <div class="slide10-header">ORN: The Infrastructure for Tourism</div>
                     <div class="slide10-title">Why ORN Wins</div>
                     
@@ -2448,7 +2496,7 @@
                 <div class="slide10-right-overlay"></div>
             </div>
         </div>
-        <div style="position: absolute; top: 25px; right: 40px; z-index: 10;">
+        <div style="position: absolute; top: 20px; right: 35px; z-index: 10;">
             <span class="slide-number">10 / 11</span>
         </div>
     </div>
@@ -2461,7 +2509,7 @@
             <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80" alt="Tropical Beach" class="slide11-bg-image">
             <div class="slide11-overlay"></div>
             
-            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 20px 35px;">
                 <div class="orn-logo-container">
                     <div class="orn-bars">
                         <div class="orn-bar"></div>
