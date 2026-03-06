@@ -1,1 +1,2590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORN - Infrastructure for Tourism</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --orn-navy: #1e3a5f;
+            --orn-cyan: #00bcd4;
+            --orn-blue: #2196f3;
+            --orn-green: #4caf50;
+            --orn-yellow: #ffeb3b;
+            --orn-red: #f44336;
+            --orn-orange: #ff9800;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
+            
+            body {
+                overflow: visible;
+                background: #0a0a0a;
+            }
+            
+            .slide {
+                display: block !important;
+                page-break-after: always;
+                page-break-inside: avoid;
+                width: 297mm;
+                height: 210mm;
+                position: relative;
+                overflow: hidden;
+                background: #0a0a0a !important;
+            }
+            
+            .nav-arrow, .progress, .download-btn {
+                display: none !important;
+            }
+            
+            .slide:last-child {
+                page-break-after: auto;
+            }
+        }
+        
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            position: relative;
+            background: #0a0a0a;
+            overflow: hidden;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* UNIFORM TYPOGRAPHY - Applied to all slides */
+        h1 {
+            font-size: 52px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: white;
+            letter-spacing: -1px;
+        }
+        
+        h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--orn-cyan);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        p, .problem-desc-dark, .value-desc-dark, .benefit-card-dark p, .slide9-paragraph, .slide10-list-item, .slide10-litmus-text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        /* CORRECTED ORN LOGO - Bars Above Text */
+        .orn-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        
+        .orn-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 4px;
+            height: 24px;
+        }
+        
+        .orn-bar {
+            width: 10px;
+            border-radius: 5px;
+        }
+        
+        .orn-bar:nth-child(1) { height: 24px; background: #2c3e66; }
+        .orn-bar:nth-child(2) { height: 18px; background: #1976d2; }
+        .orn-bar:nth-child(3) { height: 24px; background: #00bcd4; }
+        .orn-bar:nth-child(4) { height: 18px; background: #8bc34a; }
+        .orn-bar:nth-child(5) { height: 24px; background: #ffeb3b; }
+        .orn-bar:nth-child(6) { height: 18px; background: #f44336; }
+        
+        .orn-text-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+        
+        .tf-logo {
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px 15px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-number {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        /* Navigation */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,188,212,0.15);
+            border: 2px solid rgba(0,188,212,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-arrow:hover {
+            background: rgba(0,188,212,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .nav-arrow.prev { left: 25px; }
+        .nav-arrow.next { right: 25px; }
+        
+        .nav-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--orn-cyan);
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .progress {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--orn-cyan) 0%, var(--orn-blue) 100%);
+            transition: width 0.3s ease;
+            z-index: 101;
+        }
+        
+        .download-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: rgba(0,188,212,0.15);
+            border: 2px solid rgba(0,188,212,0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .download-btn:hover {
+            background: rgba(0,188,212,0.3);
+            transform: scale(1.1);
+        }
+        
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--orn-cyan);
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        
+        /* ============================================
+           SLIDE 1: OPENING - DIAGONAL SPLIT WITH ROAD
+           ============================================ */
+        .slide1-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        
+        .slide1-image-side {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        .slide1-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide1-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to left, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+        }
+        
+        .slide1-black-side {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 55%;
+            height: 100%;
+            background: #000;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 50px;
+            z-index: 2;
+        }
+        
+        .slide1-label {
+            display: inline-block;
+            background: rgba(0,188,212,0.15);
+            border: 1px solid var(--orn-cyan);
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orn-cyan);
+            margin-bottom: 24px;
+            width: fit-content;
+        }
+        
+        .slide1-headline {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.05;
+            color: white;
+            margin-bottom: 24px;
+        }
+        
+        .slide1-headline span {
+            color: var(--orn-cyan);
+        }
+        
+        .slide1-sub {
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            margin-bottom: 35px;
+            max-width: 90%;
+        }
+        
+        .slide1-pills {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .slide1-pill {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(0,188,212,0.3);
+            padding: 22px 32px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .slide1-pill-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+        }
+        
+        .slide1-pill-sub {
+            font-size: 11px;
+            color: var(--orn-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* ============================================
+           SLIDE 2: THE PROBLEM - FIXED SPLIT DESIGN
+           ============================================ */
+        .slide2-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        
+        .slide2-image-side {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 35%;
+            height: 100%;
+            clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+        }
+        
+        .slide2-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+        
+        .slide2-content-side {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70%;
+            height: 100%;
+            background: #000;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            padding: 25px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .problem-card-dark {
+            background: rgba(20, 20, 25, 0.95);
+            border-left: 4px solid var(--orn-cyan);
+            border-radius: 12px;
+            padding: 28px;
+            position: relative;
+        }
+        
+        .problem-number-large {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--orn-cyan);
+            opacity: 0.4;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        
+        .problem-title-dark {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 12px;
+        }
+        
+        .problem-desc-dark {
+            font-size: 16px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+        }
+        
+        .problem-desc-dark strong {
+            color: var(--orn-cyan);
+            font-weight: 700;
+        }
+        
+        .quote-dark {
+            background: rgba(0,188,212,0.1);
+            border-left: 4px solid var(--orn-cyan);
+            padding: 20px 28px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 25px;
+            font-size: 18px;
+            font-style: italic;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.6;
+        }
+        
+        /* ============================================
+           SLIDE 3: THE SOLUTION - CENTERED WITH IMAGE BACK
+           ============================================ */
+        .slide3-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide3-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.25;
+        }
+        
+        .slide3-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%);
+        }
+        
+        .slide3-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 50px;
+        }
+        
+        .not-list-dark {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 25px 0;
+            max-width: 900px;
+        }
+        
+        .not-item-dark {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.5);
+            padding: 10px 22px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: line-through;
+        }
+        
+        .enabler-badge {
+            background: linear-gradient(135deg, var(--orn-cyan) 0%, var(--orn-blue) 100%);
+            color: #000;
+            padding: 18px 55px;
+            border-radius: 35px;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin: 20px 0;
+        }
+        
+        .fedex-container-dark {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        
+        .fedex-box-dark {
+            background: linear-gradient(135deg, rgba(30,58,95,0.9) 0%, rgba(44,82,130,0.9) 100%);
+            border: 1px solid rgba(0,188,212,0.3);
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            min-width: 240px;
+        }
+        
+        .fedex-label-dark {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--orn-cyan);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .fedex-brand-dark {
+            font-size: 42px;
+            font-weight: 900;
+            color: white;
+        }
+        
+        .arrow-dark {
+            font-size: 42px;
+            color: var(--orn-cyan);
+        }
+        
+        .orn-box-dark {
+            background: rgba(0,0,0,0.6);
+            border: 2px solid var(--orn-cyan);
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            min-width: 240px;
+        }
+        
+        .orn-brand-dark {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--orn-cyan);
+        }
+        
+        /* ============================================
+           SLIDE 4: WHO WE ARE - ENLARGED SECTIONS
+           ============================================ */
+        .slide4-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide4-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+        
+        .slide4-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.98) 0%, rgba(0,0,0,0.75) 100%);
+        }
+        
+        .slide4-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stats-banner-dark {
+            background: linear-gradient(135deg, rgba(30,58,95,0.95) 0%, rgba(44,82,130,0.95) 100%);
+            border: 2px solid rgba(0,188,212,0.4);
+            border-radius: 16px;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .stat-item-dark {
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .stat-number-dark {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--orn-cyan);
+            line-height: 1;
+        }
+        
+        .stat-label-dark {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 8px;
+            font-weight: 600;
+        }
+        
+        .three-col-dark {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            flex: 1;
+        }
+        
+        .info-card-dark {
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(0,188,212,0.3);
+            border-radius: 16px;
+            padding: 28px;
+            overflow: hidden;
+        }
+        
+        .info-header-dark {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+        
+        .badge-dark {
+            background: linear-gradient(135deg, var(--orn-navy) 0%, #2c5282 100%);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 800;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .iso-small {
+            width: 55px;
+            height: 55px;
+            background: #003366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.1;
+            border: 2px solid var(--orn-cyan);
+        }
+        
+        .feature-box-dark {
+            background: rgba(0,188,212,0.12);
+            border: 1px solid rgba(0,188,212,0.3);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .feature-box-dark h4 {
+            color: var(--orn-cyan);
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feature-box-dark p {
+            color: rgba(255,255,255,0.9);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .leader-item-dark {
+            background: rgba(255,255,255,0.08);
+            border-left: 3px solid var(--orn-cyan);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 14px;
+        }
+        
+        .leader-name-dark {
+            font-weight: 800;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .leader-role-dark {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 4px;
+        }
+        
+        .leader-tag-dark {
+            font-size: 12px;
+            color: var(--orn-cyan);
+            margin-top: 6px;
+            font-weight: 600;
+        }
+        
+        .founder-card-dark {
+            background: linear-gradient(135deg, rgba(30,58,95,0.9) 0%, rgba(44,82,130,0.9) 100%);
+            border: 2px solid rgba(0,188,212,0.4);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .founder-name-dark {
+            font-weight: 800;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .founder-role-dark {
+            font-size: 14px;
+            color: var(--orn-cyan);
+            font-weight: 700;
+            margin-top: 6px;
+        }
+        
+        .founder-cred-dark {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 8px;
+        }
+        
+        .board-bar-dark {
+            background: rgba(255,255,255,0.12);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+        }
+        
+        /* ============================================
+           SLIDE 5: GLOBAL PRESENCE - SPLIT DESIGN
+           ============================================ */
+        .slide5-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide5-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .global-header-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .global-title-box {
+            flex: 1;
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(0,188,212,0.3);
+            border-radius: 16px;
+            padding: 28px 35px;
+        }
+        
+        .global-title-box h1 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+        
+        .global-title-box .subtitle {
+            font-size: 18px;
+        }
+        
+        .global-metric-banner {
+            background: linear-gradient(135deg, rgba(255,235,59,0.95) 0%, rgba(255,193,7,0.95) 100%);
+            color: #000;
+            padding: 28px 40px;
+            border-radius: 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 280px;
+        }
+        
+        .global-metric-number {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .global-metric-label {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+        }
+        
+        .global-main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        .global-map-section {
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(0,188,212,0.3);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .global-map-img {
+            width: 100%;
+            flex: 1;
+            object-fit: contain;
+            border-radius: 12px;
+            min-height: 0;
+        }
+        
+        .global-map-footer {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(135deg, rgba(30,58,95,0.95) 0%, rgba(44,82,130,0.95) 100%);
+            border: 2px solid rgba(0,188,212,0.4);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .global-map-footer .stat-item-dark {
+            padding: 0 15px;
+        }
+        
+        .global-map-footer .stat-number-dark {
+            font-size: 32px;
+        }
+        
+        .global-map-footer .stat-label-dark {
+            font-size: 11px;
+        }
+        
+        .global-table-section {
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(0,188,212,0.3);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .coverage-box-dark {
+            background: linear-gradient(135deg, rgba(0,188,212,0.2) 0%, rgba(33,150,243,0.2) 100%);
+            border: 2px solid rgba(0,188,212,0.4);
+            border-radius: 16px;
+            padding: 35px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .coverage-box-dark h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+        
+        .coverage-stats-dark {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        
+        .coverage-item-dark {
+            text-align: center;
+        }
+        
+        .coverage-num-dark {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--orn-cyan);
+        }
+        
+        .coverage-label-dark {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+        
+        .coverage-desc {
+            text-align: center;
+            font-size: 17px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            margin-top: 25px;
+        }
+        
+        /* ============================================
+           SLIDE 6: VALUES - ENLARGED PEM BOXES
+           ============================================ */
+        .slide6-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide6-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+        }
+        
+        .slide6-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 100%);
+        }
+        
+        .slide6-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .pem-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        
+        .pem-card-dark {
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(0,188,212,0.4);
+            border-top: 5px solid var(--orn-cyan);
+            border-radius: 20px;
+            padding: 50px 45px;
+            text-align: center;
+            min-width: 220px;
+            flex: 1;
+            max-width: 320px;
+        }
+        
+        .pem-letter-dark {
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--orn-cyan);
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+        
+        .pem-word-dark {
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 12px;
+        }
+        
+        .pem-example-dark {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            font-style: italic;
+        }
+        
+        .values-grid-dark {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .value-card-dark {
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+        }
+        
+        .value-icon-dark {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .value-title-dark {
+            font-size: 22px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .value-desc-dark {
+            font-size: 16px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+        }
+        
+        /* ============================================
+           SLIDE 7: WHY WORK WITH US - ENLARGED WITH TAB IMAGES
+           ============================================ */
+        .slide7-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide7-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+        
+        .slide7-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 100%);
+        }
+        
+        .slide7-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 40px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .industry-tabs-dark {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .tab-btn-dark {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
+            border: 2px solid rgba(0,188,212,0.4);
+            padding: 16px 28px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tab-btn-dark.active {
+            background: var(--orn-cyan);
+            color: #000;
+            border-color: var(--orn-cyan);
+        }
+        
+        .tab-image-strip {
+            width: 100%;
+            height: 120px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(0,188,212,0.3);
+        }
+        
+        .tab-image-strip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .tab-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tab-image-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+        }
+        
+        .industry-content-dark {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .benefit-card-dark {
+            background: rgba(20, 20, 25, 0.95);
+            border-left: 4px solid var(--orn-cyan);
+            border-radius: 0 16px 16px 0;
+            padding: 28px;
+        }
+        
+        .benefit-card-dark h3 {
+            color: var(--orn-cyan);
+            font-size: 15px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+        
+        .benefit-card-dark h2 {
+            font-size: 26px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+        
+        .benefit-card-dark p {
+            color: rgba(255,255,255,0.9);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+        
+        .quote-bar-dark {
+            background: rgba(0,188,212,0.15);
+            border-left: 4px solid var(--orn-cyan);
+            padding: 22px 30px;
+            border-radius: 0 16px 16px 0;
+            margin-top: 20px;
+            font-size: 18px;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.6;
+        }
+        
+        /* ============================================
+           SLIDE 8: ORN INFRASTRUCTURE - ENLARGED
+           ============================================ */
+        .slide8-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide8-diagonal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #000000 50%, transparent 50%);
+            z-index: 2;
+        }
+        
+        .slide8-image-side {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 55%;
+            height: 100%;
+        }
+        
+        .slide8-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide8-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to left, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+        }
+        
+        .slide8-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 60px;
+        }
+        
+        .slide8-text-block {
+            max-width: 45%;
+        }
+        
+        .slide8-main-title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .slide8-infrastructure {
+            font-size: 90px;
+            font-weight: 900;
+            color: white;
+            line-height: 0.95;
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+        
+        .slide8-tagline {
+            font-size: 24px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        
+        /* ============================================
+           SLIDE 9: THE VISION - ENLARGED
+           ============================================ */
+        .slide9-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide9-image-side {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            clip-path: polygon(0 0, 100% 0, 75% 100%, 0% 100%);
+        }
+        
+        .slide9-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide9-diagonal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 0%, transparent 40%, #000000 40%, #000000 100%);
+            z-index: 2;
+        }
+        
+        .slide9-content {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding: 0 60px;
+            text-align: right;
+        }
+        
+        .slide9-text-block {
+            max-width: 50%;
+        }
+        
+        .slide9-header {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--orn-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .slide9-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: white;
+            line-height: 1;
+            margin-bottom: 35px;
+        }
+        
+        .slide9-paragraph {
+            font-size: 22px;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        .slide9-quote {
+            background: rgba(0,188,212,0.2);
+            border-right: 5px solid var(--orn-cyan);
+            padding: 30px;
+            border-radius: 16px 0 0 16px;
+            margin: 30px 0;
+            font-size: 24px;
+            font-style: italic;
+            color: white;
+            text-align: right;
+            line-height: 1.5;
+        }
+        
+        /* ============================================
+           SLIDE 10: WHY ORN WINS - ENLARGED
+           ============================================ */
+        .slide10-container {
+            display: flex;
+            height: 100%;
+        }
+        
+        .slide10-left {
+            width: 50%;
+            background: #000;
+            padding: 30px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .slide10-right {
+            width: 55%;
+            position: relative;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+            margin-left: -5%;
+        }
+        
+        .slide10-right-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide10-right-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.3));
+        }
+        
+        .slide10-header {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--orn-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .slide10-title {
+            font-size: 56px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 35px;
+        }
+        
+        .slide10-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 35px;
+        }
+        
+        .slide10-list-item {
+            font-size: 20px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 18px;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .slide10-list-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--orn-cyan);
+            font-weight: 700;
+            font-size: 24px;
+        }
+        
+        .slide10-litmus {
+            background: linear-gradient(135deg, rgba(0,188,212,0.2), rgba(33,150,243,0.2));
+            border: 2px solid rgba(0,188,212,0.4);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        
+        .slide10-litmus-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--orn-cyan);
+            margin-bottom: 20px;
+        }
+        
+        .slide10-litmus-text {
+            font-size: 18px;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.8;
+        }
+        
+        .slide10-litmus-highlight {
+            color: var(--orn-cyan);
+            font-weight: 700;
+        }
+        
+        /* ============================================
+           SLIDE 11: CLOSING
+           ============================================ */
+        .slide11-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide11-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+        
+        .slide11-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
+        }
+        
+        .slide11-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .closing-label {
+            font-size: 18px;
+            letter-spacing: 4px;
+            color: var(--orn-cyan);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .closing-headline {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .closing-headline span {
+            color: var(--orn-cyan);
+        }
+        
+        .closing-sub {
+            font-size: 24px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 40px;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+        
+        .closing-pills {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .closing-pill {
+            background: rgba(20, 20, 25, 0.95);
+            border: 2px solid rgba(0,188,212,0.4);
+            padding: 30px 50px;
+            border-radius: 16px;
+            text-align: center;
+            min-width: 280px;
+        }
+        
+        .closing-pill-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .closing-pill-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--orn-cyan);
+        }
+        
+        .closing-quote {
+            font-size: 22px;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            max-width: 900px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
 
+    <!-- Navigation Arrows -->
+    <button class="nav-arrow prev" onclick="prevSlide()">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="nav-arrow next" onclick="nextSlide()">
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+
+    <!-- Download Button -->
+    <button class="download-btn" onclick="printToPDF()" title="Save as PDF">
+        <svg viewBox="0 0 24 24">
+            <path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+            <path d="M6 14h12v8H6z"/>
+        </svg>
+    </button>
+
+    <!-- ============================================
+         SLIDE 1: OPENING - DIAGONAL SPLIT WITH ROAD
+         ============================================ -->
+    <div class="slide active" id="slide1">
+        <div class="slide1-container">
+            <div class="slide1-image-side">
+                <img src="https://images.unsplash.com/photo-1519817914152-22d216bb9170?w=1920&q=80" alt="Open Road Journey" class="slide1-image">
+                <div class="slide1-image-overlay"></div>
+            </div>
+            <div class="slide1-black-side">
+                <div class="orn-logo-container" style="position: absolute; top: 25px; left: 40px;">
+                    <div class="orn-bars">
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                    </div>
+                    <div class="orn-text-logo">ORN</div>
+                </div>
+                
+                <div style="margin-top: 80px;">
+                    <div class="slide1-label animate delay-1">We Are ORN</div>
+                    <div class="slide1-headline animate delay-1">
+                        We Built the<br>
+                        <span>Infrastructure</span><br>
+                        That Powers<br>
+                        Global Tourism
+                    </div>
+                    <p class="slide1-sub animate delay-2">
+                        Not a travel company. Not a tech company.<br>
+                        <strong style="color: var(--orn-cyan);">The enabling layer that makes every journey possible.</strong>
+                    </p>
+                    <div class="slide1-pills animate delay-3">
+                        <div class="slide1-pill">
+                            <div class="slide1-pill-title">TripFactory</div>
+                            <div class="slide1-pill-sub">Powered by ORN</div>
+                        </div>
+                        <div class="slide1-pill">
+                            <div class="slide1-pill-title">NEXUS</div>
+                            <div class="slide1-pill-sub">Powered by ORN</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute; top: 25px; right: 40px; z-index: 10;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="tripfactory-logo.png" alt="TripFactory" class="tf-logo" onerror="this.style.display='none'">
+                <span class="slide-number">01 / 11</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 2: THE PROBLEM - FIXED SPLIT DESIGN
+         ============================================ -->
+    <div class="slide" id="slide2">
+        <div class="slide2-container">
+            <div class="slide2-image-side">
+                <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920&q=80" alt="City Skyline" class="slide2-image">
+            </div>
+            <div class="slide2-content-side">
+                <div class="header" style="padding: 0 0 20px 0;">
+                    <div class="orn-logo-container">
+                        <div class="orn-bars">
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                        </div>
+                        <div class="orn-text-logo">ORN</div>
+                    </div>
+                    <span class="slide-number">02 / 11</span>
+                </div>
+                
+                <h3>The Problem</h3>
+                <h1 style="font-size: 48px;">Tourism Had No<br>Infrastructure Layer</h1>
+                <p class="subtitle" style="font-size: 20px; margin-bottom: 25px;">Three fundamental failures that broke every journey—until now</p>
+                
+                <div class="problem-grid animate delay-2">
+                    <div class="problem-card-dark">
+                        <div class="problem-number-large">01</div>
+                        <div class="problem-title-dark">Knowledge Gap</div>
+                        <div class="problem-desc-dark">
+                            Information was abundant, but <strong>knowing how to use it</strong> was scarce. Travelers drowned in data but lacked wisdom.
+                        </div>
+                    </div>
+                    <div class="problem-card-dark" style="border-left-color: var(--orn-orange);">
+                        <div class="problem-number-large" style="color: var(--orn-orange);">02</div>
+                        <div class="problem-title-dark">Product Mismatch</div>
+                        <div class="problem-desc-dark">
+                            Static supply chains delivered <strong>pre-packaged products</strong>, not personalized solutions.
+                        </div>
+                    </div>
+                    <div class="problem-card-dark" style="border-left-color: var(--orn-red);">
+                        <div class="problem-number-large" style="color: var(--orn-red);">03</div>
+                        <div class="problem-title-dark">Delivery Void</div>
+                        <div class="problem-desc-dark">
+                            There was <strong>no FedEx equivalent</strong> for tourism. People were dumped at destinations with no orchestration.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quote-dark animate delay-3">
+                    "The fatal flaw in past attempts? The fragments ARE the power of the industry. What was needed was to enable and orchestrate—not consolidate."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 3: THE SOLUTION - CENTERED
+         ============================================ -->
+    <div class="slide" id="slide3">
+        <div class="slide3-container">
+            <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1920&q=80" alt="Airplane Wing" class="slide3-bg-image">
+            <div class="slide3-overlay"></div>
+            
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+                <div class="orn-logo-container">
+                    <div class="orn-bars">
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                    </div>
+                    <div class="orn-text-logo">ORN</div>
+                </div>
+                <span class="slide-number">03 / 11</span>
+            </div>
+            
+            <div class="slide3-content">
+                <h3>The Solution</h3>
+                <h1 style="font-size: 56px;">We Are Not What You Think</h1>
+                
+                <div class="not-list-dark animate delay-2">
+                    <span class="not-item-dark">Not a Tour Operator</span>
+                    <span class="not-item-dark">Not a DMC</span>
+                    <span class="not-item-dark">Not an Airline</span>
+                    <span class="not-item-dark">Not a Hotel Chain</span>
+                    <span class="not-item-dark">Not a Tech Company</span>
+                    <span class="not-item-dark">Not a Wholesaler</span>
+                </div>
+                
+                <div class="enabler-badge animate delay-2">WE ARE AN ENABLER</div>
+                
+                <div class="fedex-container-dark animate delay-3">
+                    <div class="fedex-box-dark">
+                        <div class="fedex-label-dark">Logistics Giants</div>
+                        <div class="fedex-brand-dark">FedEx</div>
+                        <div style="font-size: 16px; color: rgba(255,255,255,0.8); margin-top: 10px;">Moves packages globally</div>
+                    </div>
+                    <div class="arrow-dark">→</div>
+                    <div class="orn-box-dark">
+                        <div class="fedex-label-dark" style="color: var(--orn-cyan);">We Are</div>
+                        <div class="orn-brand-dark">ORN</div>
+                        <div style="font-size: 18px; color: rgba(255,255,255,0.9); margin-top: 10px; font-weight: 600;">Moves travelers seamlessly</div>
+                    </div>
+                </div>
+                
+                <p class="animate delay-4" style="font-size: 22px; color: rgba(255,255,255,0.95); text-align: center; max-width: 900px; line-height: 1.7; margin-top: 20px;">
+                    We have created <strong style="color: var(--orn-cyan);">principal infrastructure</strong> for tourism.<br>
+                    Airlines move you airport-to-airport. We move you door-to-door, end-to-end.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 4: WHO WE ARE - ENLARGED SECTIONS
+         ============================================ -->
+    <div class="slide" id="slide4">
+        <div class="slide4-container">
+            <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1920&q=80" alt="Wall Street" class="slide4-bg-image">
+            <div class="slide4-overlay"></div>
+            
+            <div class="slide4-content">
+                <div class="header" style="padding: 0 0 20px 0;">
+                    <div class="orn-logo-container">
+                        <div class="orn-bars">
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                        </div>
+                        <div class="orn-text-logo">ORN</div>
+                    </div>
+                    <span class="slide-number">04 / 11</span>
+                </div>
+                
+                <div class="stats-banner-dark animate delay-1">
+                    <div class="stat-item-dark">
+                        <div class="stat-number-dark">$60B</div>
+                        <div class="stat-label-dark">HCL Group Backing</div>
+                    </div>
+                    <div class="stat-item-dark">
+                        <div class="stat-number-dark">226K+</div>
+                        <div class="stat-label-dark">Global Workforce</div>
+                    </div>
+                    <div class="stat-item-dark">
+                        <div class="stat-number-dark">ISO</div>
+                        <div class="stat-label-dark">27001 Certified</div>
+                    </div>
+                    <div class="stat-item-dark">
+                        <div class="stat-number-dark">200+</div>
+                        <div class="stat-label-dark">Delivery Centers</div>
+                    </div>
+                </div>
+                
+                <div class="three-col-dark animate delay-2">
+                    <div class="info-card-dark">
+                        <div class="info-header-dark">
+                            <div class="badge-dark">Part of $60B HCL Group</div>
+                            <div class="iso-small">ISO<br>27001</div>
+                        </div>
+                        
+                        <div class="feature-box-dark">
+                            <h4>🛡️ Enterprise-Grade Security</h4>
+                            <p>Bank-level encryption, SOC 2 compliance, and ISO 27001 certification protect every transaction.</p>
+                        </div>
+                        
+                        <div class="feature-box-dark">
+                            <h4>🏦 Financial Stability</h4>
+                            <p>Backed by one of India's largest conglomerates. Zero debt, profitable operations.</p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px;">
+                            <div class="feature-box-dark" style="text-align: center; padding: 18px;">
+                                <div style="font-size: 32px; font-weight: 900; color: var(--orn-cyan);">150+</div>
+                                <div style="font-size: 13px; color: rgba(255,255,255,0.8);">Innovation Labs</div>
+                            </div>
+                            <div class="feature-box-dark" style="text-align: center; padding: 18px;">
+                                <div style="font-size: 32px; font-weight: 900; color: var(--orn-cyan);">160+</div>
+                                <div style="font-size: 13px; color: rgba(255,255,255,0.8);">Nationalities</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card-dark">
+                        <h3 style="text-align: center; margin-bottom: 25px; font-size: 16px;">World-Class Leadership</h3>
+                        
+                        <div class="leader-item-dark">
+                            <div class="leader-name-dark">Andrew McEvoy</div>
+                            <div class="leader-role-dark">Former MD, Tourism Australia</div>
+                            <div class="leader-tag-dark">🌏 Asia-Pacific Strategy</div>
+                        </div>
+                        
+                        <div class="leader-item-dark" style="border-left-color: var(--orn-blue);">
+                            <div class="leader-name-dark">Ninan Chacko</div>
+                            <div class="leader-role-dark">Former CEO, Travel Leaders Group (USA)</div>
+                            <div class="leader-tag-dark" style="color: var(--orn-blue);">🇺🇸 North America Expansion</div>
+                        </div>
+                        
+                        <div class="leader-item-dark" style="border-left-color: var(--orn-green);">
+                            <div class="leader-name-dark">Bader Kanoo</div>
+                            <div class="leader-role-dark">Regional Business Leader, Middle East</div>
+                            <div class="leader-tag-dark" style="color: var(--orn-green);">🇸🇦 GCC Operations</div>
+                        </div>
+                        
+                        <div class="board-bar-dark">
+                            <strong>Board:</strong> Michael Durham (ex-CEO Sabre) • Swami Swaminathan (ex-MD Infosys BPO) • KK Menon (Kanoo Group)
+                        </div>
+                    </div>
+                    
+                    <div class="info-card-dark">
+                        <h3 style="text-align: center; margin-bottom: 25px; font-size: 16px;">Proven Founders</h3>
+                        
+                        <div class="founder-card-dark">
+                            <div class="founder-name-dark">Vinay Gupta</div>
+                            <div class="founder-role-dark">Founder & Group CEO</div>
+                            <div class="founder-cred-dark">Via.com: $1.5B GMV, 49 countries</div>
+                        </div>
+                        
+                        <div class="founder-card-dark">
+                            <div class="founder-name-dark">Amit Aggarwal</div>
+                            <div class="founder-role-dark">Co-Founder & Group COO</div>
+                            <div class="founder-cred-dark">Via.com CTO, IIT Gold Medal</div>
+                        </div>
+                        
+                        <div class="founder-card-dark">
+                            <div class="founder-name-dark">Varun Gupta</div>
+                            <div class="founder-role-dark">Co-Founder & Group CTO</div>
+                            <div class="founder-cred-dark">Scaled tech team 20→100+</div>
+                        </div>
+                        
+                        <div class="quote-dark" style="margin-top: 20px; font-size: 14px; padding: 20px;">
+                            <em>"This is not a travel company. This is principal infrastructure."</em>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 5: GLOBAL PRESENCE - REDESIGNED
+         ============================================ -->
+    <div class="slide" id="slide5">
+        <div class="slide5-container">
+            <div class="slide5-content">
+                <div class="header" style="padding: 0 0 20px 0;">
+                    <div class="orn-logo-container">
+                        <div class="orn-bars">
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                        </div>
+                        <div class="orn-text-logo">ORN</div>
+                    </div>
+                    <span class="slide-number">05 / 11</span>
+                </div>
+                
+                <div class="global-header-row animate delay-1">
+                    <div class="global-title-box">
+                        <h3>Global Presence</h3>
+                        <h1 style="font-size: 48px; margin-bottom: 12px;">We Are Where the Money Is</h1>
+                        <p class="subtitle" style="font-size: 20px;">Strategic hubs covering $300B+ of global travel spend across 40+ countries</p>
+                    </div>
+                    <div class="global-metric-banner">
+                        <div class="global-metric-number">$300B+</div>
+                        <div class="global-metric-label">Our Client Market Share</div>
+                    </div>
+                </div>
+                
+                <div class="global-main-content animate delay-2">
+                    <div class="global-map-section">
+                        <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1920&q=80" alt="ORN Global Network" class="global-map-img" onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;background:rgba(0,188,212,0.1);border-radius:12px;color:#666;font-size:18px;font-weight:600;\'>[Global Network Map]</div>';">
+                        
+                        <div class="global-map-footer">
+                            <div class="stat-item-dark">
+                                <div class="stat-number-dark">40+</div>
+                                <div class="stat-label-dark">Countries</div>
+                            </div>
+                            <div class="stat-item-dark">
+                                <div class="stat-number-dark">$300B+</div>
+                                <div class="stat-label-dark">Market Share</div>
+                            </div>
+                            <div class="stat-item-dark">
+                                <div class="stat-number-dark">85%</div>
+                                <div class="stat-label-dark">of Global TAM</div>
+                            </div>
+                            <div class="stat-item-dark">
+                                <div class="stat-number-dark">104</div>
+                                <div class="stat-label-dark">Nationalities</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="global-table-section">
+                        <div class="coverage-box-dark">
+                            <h3>🌍 Global Market Coverage</h3>
+                            <div class="coverage-stats-dark">
+                                <div class="coverage-item-dark">
+                                    <div class="coverage-num-dark">$763B</div>
+                                    <div class="coverage-label-dark">ORN Coverage</div>
+                                </div>
+                                <div class="coverage-item-dark">
+                                    <div class="coverage-num-dark">$900B</div>
+                                    <div class="coverage-label-dark">Global TAM</div>
+                                </div>
+                                <div class="coverage-item-dark">
+                                    <div class="coverage-num-dark">85%</div>
+                                    <div class="coverage-label-dark">Market Share</div>
+                                </div>
+                            </div>
+                            <p class="coverage-desc">
+                                <strong>We cover 85% of the world's addressable travel market.</strong> Our 5 strategic hubs are positioned in the highest-value tourism corridors.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 6: VALUES - ENLARGED PEM BOXES
+         ============================================ -->
+    <div class="slide" id="slide6">
+        <div class="slide6-container">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80" alt="Mountain Lake" class="slide6-bg-image">
+            <div class="slide6-overlay"></div>
+            
+            <div class="slide6-content">
+                <div class="header" style="padding: 0 0 20px 0;">
+                    <div class="orn-logo-container">
+                        <div class="orn-bars">
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                        </div>
+                        <div class="orn-text-logo">ORN</div>
+                    </div>
+                    <span class="slide-number">06 / 11</span>
+                </div>
+                
+                <div style="max-width: 900px; margin-bottom: 30px;">
+                    <h3>How We Built It</h3>
+                    <h1 style="font-size: 52px;">Values-Driven Infrastructure</h1>
+                    <p class="subtitle" style="font-size: 22px;">Integrity, Innovation, Reliability, Care—the principles that created our platform</p>
+                </div>
+                
+                <div class="pem-row animate delay-2">
+                    <div class="pem-card-dark">
+                        <div class="pem-letter-dark">P</div>
+                        <div class="pem-word-dark">Possible</div>
+                        <div class="pem-example-dark">"If it's possible, we make it happen"</div>
+                    </div>
+                    <div class="pem-card-dark" style="border-top-color: var(--orn-blue);">
+                        <div class="pem-letter-dark" style="color: var(--orn-blue);">E</div>
+                        <div class="pem-word-dark">Enjoyable</div>
+                        <div class="pem-example-dark">"Maximize Time, Money, Experience"</div>
+                    </div>
+                    <div class="pem-card-dark" style="border-top-color: var(--orn-green);">
+                        <div class="pem-letter-dark" style="color: var(--orn-green);">M</div>
+                        <div class="pem-word-dark">Memorable</div>
+                        <div class="pem-example-dark">"Birthday? We make it special"</div>
+                    </div>
+                </div>
+                
+                <div class="values-grid-dark animate delay-3">
+                    <div class="value-card-dark">
+                        <div class="value-icon-dark">⚡</div>
+                        <div class="value-title-dark">Integrity First</div>
+                        <div class="value-desc-dark">We ensure we are fair and honest. We don't exist just to sell—we exist to solve.</div>
+                    </div>
+                    <div class="value-card-dark">
+                        <div class="value-icon-dark">🔬</div>
+                        <div class="value-title-dark">Innovation</div>
+                        <div class="value-desc-dark">How we bring empathy and the problem together through creative solutions.</div>
+                    </div>
+                    <div class="value-card-dark">
+                        <div class="value-icon-dark">🎯</div>
+                        <div class="value-title-dark">Reliability</div>
+                        <div class="value-desc-dark">At 6am, the car has to show up. No excuses. Travel depends on it.</div>
+                    </div>
+                    <div class="value-card-dark">
+                        <div class="value-icon-dark">💙</div>
+                        <div class="value-title-dark">Care</div>
+                        <div class="value-desc-dark">Empathy in design. Care goes into everything we built.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 7: WHY WORK WITH US - ENLARGED WITH TAB IMAGES
+         ============================================ -->
+    <div class="slide" id="slide7">
+        <div class="slide7-container">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80" alt="Tropical Beach" class="slide7-bg-image">
+            <div class="slide7-overlay"></div>
+            
+            <div class="slide7-content">
+                <div class="header" style="padding: 0 0 20px 0;">
+                    <div class="orn-logo-container">
+                        <div class="orn-bars">
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                        </div>
+                        <div class="orn-text-logo">ORN</div>
+                    </div>
+                    <span class="slide-number">07 / 11</span>
+                </div>
+                
+                <div style="max-width: 900px; margin-bottom: 20px;">
+                    <h3>Partnership</h3>
+                    <h1 style="font-size: 48px;">Why Work With Us</h1>
+                    <p class="subtitle" style="font-size: 20px;">We complete the ecosystem—we don't compete with it</p>
+                </div>
+                
+                <div class="tabs-container">
+                    <div class="industry-tabs-dark animate delay-2">
+                        <button class="tab-btn-dark active" onclick="switchIndustry('hotels')" id="tab-hotels">🏨 Hotels</button>
+                        <button class="tab-btn-dark" onclick="switchIndustry('airlines')" id="tab-airlines">✈️ Airlines</button>
+                        <button class="tab-btn-dark" onclick="switchIndustry('tourism')" id="tab-tourism">🌍 Tourism Boards</button>
+                        <button class="tab-btn-dark" onclick="switchIndustry('dmc')" id="tab-dmc">🤝 DMCs & Agents</button>
+                    </div>
+                    
+                    <!-- HOTELS TAB IMAGE -->
+                    <div id="image-hotels" class="tab-image-strip animate delay-2">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80" alt="Luxury Hotel Lobby">
+                        <div class="tab-image-overlay">
+                            <div class="tab-image-title">HOTEL PARTNERSHIPS</div>
+                        </div>
+                    </div>
+                    
+                    <!-- AIRLINES TAB IMAGE -->
+                    <div id="image-airlines" class="tab-image-strip animate delay-2" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1542296332-2e44a996aa0d?w=1920&q=80" alt="Airplane Cabin">
+                        <div class="tab-image-overlay">
+                            <div class="tab-image-title">AIRLINE PARTNERSHIPS</div>
+                        </div>
+                    </div>
+                    
+                    <!-- TOURISM TAB IMAGE -->
+                    <div id="image-tourism" class="tab-image-strip animate delay-2" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1920&q=80" alt="Venice Tourism">
+                        <div class="tab-image-overlay">
+                            <div class="tab-image-title">DESTINATION PARTNERSHIPS</div>
+                        </div>
+                    </div>
+                    
+                    <!-- DMC TAB IMAGE -->
+                    <div id="image-dmc" class="tab-image-strip animate delay-2" style="display: none;">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&q=80" alt="Travel Agent">
+                        <div class="tab-image-overlay">
+                            <div class="tab-image-title">AGENT & DMC PARTNERSHIPS</div>
+                        </div>
+                    </div>
+                    
+                    <!-- HOTELS CONTENT -->
+                    <div id="content-hotels" class="industry-content-dark animate delay-3">
+                        <div class="benefit-card-dark">
+                            <h3>Brand Identity Restoration</h3>
+                            <h2>Escape the Rate-Parity Battle</h2>
+                            <p>Stop competing solely on price. Our infrastructure lets you showcase unique experiences, amenities, and brand values that justify premium positioning.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-blue);">
+                            <h3 style="color: var(--orn-blue);">Direct Demand Generation</h3>
+                            <h2>Own Your Customer Relationship</h2>
+                            <p>Access 200k+ agents globally who can book your property directly. Build guest profiles, preferences, and loyalty programs that OTAs can't replicate.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-green);">
+                            <h3 style="color: var(--orn-green);">Filling Destination Gaps</h3>
+                            <h2>Complete the Guest Journey</h2>
+                            <p>Guests want more than a room—they want experiences. We connect your property to local tours, transfers, dining, and activities, increasing revenue per guest.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-orange);">
+                            <h3 style="color: var(--orn-orange);">Expanding Reach</h3>
+                            <h2>Access 40+ Source Markets</h2>
+                            <p>Our 5 global hubs put your property in front of travelers from 104 nationalities. Instant quotes in any language, any currency, any time zone.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-red);">
+                            <h3 style="color: var(--orn-red);">Loyal Customer Base</h3>
+                            <h2>70%+ Repeat Booking Rate</h2>
+                            <p>Our ecosystem creates stickiness. When guests book through ORN-powered platforms, they return because the entire experience—not just the room—was exceptional.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: #8b5cf6;">
+                            <h3 style="color: #8b5cf6;">Executable Journey Integration</h3>
+                            <h2>From Booking to Checkout</h2>
+                            <p>We don't just send you bookings—we orchestrate the entire stay. Airport transfers, early check-ins, room preferences, local experiences, all seamlessly integrated.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- AIRLINES CONTENT -->
+                    <div id="content-airlines" class="industry-content-dark animate delay-3" style="display: none;">
+                        <div class="benefit-card-dark">
+                            <h3>Beyond Airport-to-Airport</h3>
+                            <h2>Own the Entire Journey</h2>
+                            <p>Stop ceding the ground experience to others. From home pickup to hotel check-in and back, stay connected to your passenger throughout their trip.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-blue);">
+                            <h3 style="color: var(--orn-blue);">Ancillary Revenue Capture</h3>
+                            <h2>Unlock New Revenue Streams</h2>
+                            <p>Earn commissions on hotels, transfers, tours, and experiences. Turn your booking confirmation into a travel planning platform with personalized recommendations.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-green);">
+                            <h3 style="color: var(--orn-green);">Personalized Experiences</h3>
+                            <h2>AI-Powered Trip Planning</h2>
+                            <p>Our Holiday Equation (HE = Fn(IP, DP, CP)) creates personalized itineraries for every passenger based on their preferences, destination, and travel style.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-orange);">
+                            <h3 style="color: var(--orn-orange);">Filling Network Gaps</h3>
+                            <h2>Complete Your Route Map</h2>
+                            <p>Don't have daily service to a destination? We fill the gaps with partner airlines, ground transport, and accommodation—keeping the passenger in your ecosystem.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-red);">
+                            <h3 style="color: var(--orn-red);">Expanding Market Reach</h3>
+                            <h2>Access 200k+ Travel Agents</h2>
+                            <p>Our B2B network puts your routes in front of travel professionals worldwide who can package your flights with ground services—increasing load factors and yield.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: #8b5cf6;">
+                            <h3 style="color: #8b5cf6;">End-to-End Journey Ownership</h3>
+                            <h2>24/7 Concierge Support</h2>
+                            <p>When disruptions happen, we're awake. Flight delays, missed connections, hotel issues—we handle it all so your passengers stay loyal to your brand.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- TOURISM BOARDS CONTENT -->
+                    <div id="content-tourism" class="industry-content-dark animate delay-3" style="display: none;">
+                        <div class="benefit-card-dark">
+                            <h3>Strategy to Executable Journeys</h3>
+                            <h2>From Vision to Reality</h2>
+                            <p>Stop producing reports that sit on shelves. We turn your tourism strategy into bookable, executable journeys that visitors can purchase immediately.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-blue);">
+                            <h3 style="color: var(--orn-blue);">Dispersal & Stewardship</h3>
+                            <h2>Spread Tourism Benefits</h2>
+                            <p>Move visitors beyond hotspots to secondary destinations. Our infrastructure connects remote areas to global demand, supporting sustainable tourism development.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-green);">
+                            <h3 style="color: var(--orn-green);">Bringing All Players Under One Roof</h3>
+                            <h2>Unified Ecosystem</h2>
+                            <p>Airlines, hotels, DMCs, attractions, transport—our platform integrates all stakeholders. One infrastructure, seamless coordination, measurable results.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-orange);">
+                            <h3 style="color: var(--orn-orange);">Filling Experience Gaps</h3>
+                            <h2>Complete Destination Offering</h2>
+                            <p>Identify what's missing in your destination's tourism product. We help develop and connect experiences that turn day-trippers into multi-night visitors.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-red);">
+                            <h3 style="color: var(--orn-red);">Expanding Source Markets</h3>
+                            <h2>40+ Countries, 104 Nationalities</h2>
+                            <p>Our global hubs in London, Dubai, Mumbai, Singapore, and New York put your destination in front of high-value travelers from every major source market.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: #8b5cf6;">
+                            <h3 style="color: #8b5cf6;">Measurable Destination Impact</h3>
+                            <h2>Data-Driven Tourism Policy</h2>
+                            <p>Real-time data on visitor flows, spending patterns, and satisfaction scores. Make policy decisions based on actual traveler behavior, not surveys.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- DMCs CONTENT -->
+                    <div id="content-dmc" class="industry-content-dark animate delay-3" style="display: none;">
+                        <div class="benefit-card-dark">
+                            <h3>Access to 200k+ Agents Globally</h3>
+                            <h2>Instant Distribution Network</h2>
+                            <p>Plug into our B2B platform and reach travel agents worldwide. No need to build your own sales force—we've already done it across 40+ countries.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-blue);">
+                            <h3 style="color: var(--orn-blue);">Instant Quotes, Any Destination</h3>
+                            <h2>AI-Powered Pricing Engine</h2>
+                            <p>Our Holiday Equation generates accurate quotes in seconds, not hours. Handle complex multi-city, multi-service itineraries with automated pricing and availability.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-green);">
+                            <h3 style="color: var(--orn-green);">24/7 Concierge Support</h3>
+                            <h2>Never Sleep on Customer Care</h2>
+                            <p>When your clients need help at 3am, we're awake. Our global support infrastructure means someone is always available to solve problems and save bookings.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-orange);">
+                            <h3 style="color: var(--orn-orange);">Filling Service Gaps</h3>
+                            <h2>Complete Service Portfolio</h2>
+                            <p>Don't turn down business because you can't handle a component. Our network of verified suppliers fills gaps in your offering—transfers, guides, activities, accommodation.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: var(--orn-red);">
+                            <h3 style="color: var(--orn-red);">Expanding Your Reach</h3>
+                            <h2>Global Demand, Local Expertise</h2>
+                            <p>Access demand from markets you could never reach alone. Our 5 hubs connect your local expertise to travelers from 104 nationalities seeking authentic experiences.</p>
+                        </div>
+                        <div class="benefit-card-dark" style="border-left-color: #8b5cf6;">
+                            <h3 style="color: #8b5cf6;">Creating Loyal Customers</h3>
+                            <h2>70%+ Repeat Booking Rate</h2>
+                            <p>When you deliver through our infrastructure, clients return. Our end-to-end orchestration ensures seamless experiences that build lasting relationships and referrals.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="quote-bar-dark animate delay-4">
+                        <strong>The Partnership Philosophy:</strong> "You have created infrastructure for hospitality. We have created infrastructure for tourism. That's why we work together."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 8: ORN INFRASTRUCTURE - ENLARGED
+         ============================================ -->
+    <div class="slide" id="slide8">
+        <div class="slide8-container">
+            <div class="slide8-image-side">
+                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80" alt="Open Road Infrastructure" class="slide8-image">
+                <div class="slide8-image-overlay"></div>
+            </div>
+            <div class="slide8-diagonal"></div>
+            
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+                <div class="orn-logo-container">
+                    <div class="orn-bars">
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                    </div>
+                    <div class="orn-text-logo">ORN</div>
+                </div>
+                <span class="slide-number">08 / 11</span>
+            </div>
+            
+            <div class="slide8-content">
+                <div class="slide8-text-block animate delay-1">
+                    <div class="slide8-main-title">ORN</div>
+                    <div class="slide8-infrastructure">The Infrastructure<br>for Tourism</div>
+                    <div class="slide8-tagline">
+                        Tourism has never had a foundational system.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 9: THE VISION - ENLARGED
+         ============================================ -->
+    <div class="slide" id="slide9">
+        <div class="slide9-container">
+            <div class="slide9-image-side">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80" alt="Network Vision" class="slide9-image">
+            </div>
+            <div class="slide9-diagonal"></div>
+            
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+                <div class="orn-logo-container">
+                    <div class="orn-bars">
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                    </div>
+                    <div class="orn-text-logo">ORN</div>
+                </div>
+                <span class="slide-number">09 / 11</span>
+            </div>
+            
+            <div class="slide9-content">
+                <div class="slide9-text-block animate delay-1">
+                    <div class="slide9-header">ORN: The Infrastructure for Tourism</div>
+                    <div class="slide9-title">The Vision</div>
+                    
+                    <div class="slide9-paragraph">
+                        Tourism has never had a foundational infrastructure.
+                    </div>
+                    
+                    <div class="slide9-paragraph">
+                        ORN creates the missing layer — a global system where journeys can be discovered, composed, and executed dynamically.
+                    </div>
+                    
+                    <div class="slide9-quote">
+                        "Like the internet enabled software and services to flourish, ORN enables tourism ideas to flourish."
+                    </div>
+                    
+                    <div class="slide9-paragraph">
+                        Destinations, experiences, suppliers, and traveler intent become part of a living network where new journeys can continuously emerge.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 10: WHY ORN WINS - ENLARGED
+         ============================================ -->
+    <div class="slide" id="slide10">
+        <div class="slide10-container">
+            <div class="slide10-left">
+                <div class="header" style="position: absolute; top: 25px; left: 40px; z-index: 10; padding: 0;">
+                    <div class="orn-logo-container">
+                        <div class="orn-bars">
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                            <div class="orn-bar"></div>
+                        </div>
+                        <div class="orn-text-logo">ORN</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 60px;">
+                    <div class="slide10-header">ORN: The Infrastructure for Tourism</div>
+                    <div class="slide10-title">Why ORN Wins</div>
+                    
+                    <ul class="slide10-list animate delay-2">
+                        <li class="slide10-list-item"><strong>Infrastructure</strong> vs. Travel Companies</li>
+                        <li class="slide10-list-item"><strong>Generative System</strong> vs. Static Packages</li>
+                        <li class="slide10-list-item"><strong>Network Intelligence</strong> vs. Manual Planning</li>
+                        <li class="slide10-list-item"><strong>Programmable Tourism</strong> vs. Fragmented Supply</li>
+                        <li class="slide10-list-item"><strong>Platform for Ideas</strong> vs. Product Distribution</li>
+                        <li class="slide10-list-item"><strong>Self-Expanding Ecosystem</strong> vs. Linear Growth</li>
+                    </ul>
+                    
+                    <div class="slide10-litmus animate delay-3">
+                        <div class="slide10-litmus-title">🧪 The Litmus Test</div>
+                        <div class="slide10-litmus-text">
+                            If employees stop showing up tomorrow, traditional travel companies stop operating.<br><br>
+                            ORN is different. Journeys can still be discovered, composed, and delivered because the intelligence of tourism lives inside the system itself.<br><br>
+                            <span class="slide10-litmus-highlight">When travel continues to function without depending on people assembling it each time—that is infrastructure.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide10-right">
+                <img src="https://images.unsplash.com/photo-1504384308090-c54be3852f33?w=1920&q=80" alt="Technology Infrastructure" class="slide10-right-image">
+                <div class="slide10-right-overlay"></div>
+            </div>
+        </div>
+        <div style="position: absolute; top: 25px; right: 40px; z-index: 10;">
+            <span class="slide-number">10 / 11</span>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SLIDE 11: CLOSING
+         ============================================ -->
+    <div class="slide" id="slide11">
+        <div class="slide11-container">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80" alt="Tropical Beach" class="slide11-bg-image">
+            <div class="slide11-overlay"></div>
+            
+            <div class="header" style="position: absolute; top: 0; left: 0; right: 0; z-index: 10; padding: 25px 40px;">
+                <div class="orn-logo-container">
+                    <div class="orn-bars">
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                        <div class="orn-bar"></div>
+                    </div>
+                    <div class="orn-text-logo">ORN</div>
+                </div>
+                <span class="slide-number">11 / 11</span>
+            </div>
+            
+            <div class="slide11-content">
+                <div class="closing-label animate delay-1">Join the Infrastructure Revolution</div>
+                
+                <div class="closing-headline animate delay-2">
+                    Ready to Power<br>
+                    <span>the Future of Travel?</span>
+                </div>
+                
+                <p class="closing-sub animate delay-3">
+                    Partner with the infrastructure layer that's already moving millions of travelers across 40+ countries.
+                </p>
+                
+                <div class="closing-pills animate delay-3">
+                    <div class="closing-pill">
+                        <div class="closing-pill-label">Visit Us</div>
+                        <div class="closing-pill-value">ornvacations.com</div>
+                    </div>
+                    <div class="closing-pill">
+                        <div class="closing-pill-label">Powered By</div>
+                        <div class="closing-pill-value">TripFactory</div>
+                    </div>
+                </div>
+                
+                <p class="closing-quote animate delay-4">
+                    "We are building the internet for tourism—where every journey is possible, enjoyable, and memorable."
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress" id="progress"></div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 11;
+        
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            document.getElementById(`slide${currentSlide}`).classList.add('active');
+            
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+        
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+        
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+        
+        function switchIndustry(industry) {
+            // Hide all content
+            document.querySelectorAll('.industry-content-dark').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Hide all tab images
+            document.querySelectorAll('.tab-image-strip').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Show selected content
+            document.getElementById(`content-${industry}`).style.display = 'grid';
+            
+            // Show selected image
+            document.getElementById(`image-${industry}`).style.display = 'block';
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn-dark').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(`tab-${industry}`).classList.add('active');
+        }
+        
+        function printToPDF() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.add('active'));
+            
+            document.querySelectorAll('.nav-arrow').forEach(el => el.style.display = 'none');
+            document.querySelector('.progress').style.display = 'none';
+            document.querySelector('.download-btn').style.display = 'none';
+            
+            window.print();
+            
+            setTimeout(() => {
+                slides.forEach((slide, index) => {
+                    if (index !== currentSlide - 1) slide.classList.remove('active');
+                });
+                document.querySelectorAll('.nav-arrow').forEach(el => el.style.display = 'flex');
+                document.querySelector('.progress').style.display = 'block';
+                document.querySelector('.download-btn').style.display = 'flex';
+            }, 1000);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+        
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
